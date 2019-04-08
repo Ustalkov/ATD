@@ -1,0 +1,148 @@
+#include <iostream>
+#include <cstring>
+
+using std::ostream;
+using std::istream;
+
+class iPhone;     
+
+class model
+
+{
+	friend class iPhone;         
+	private:
+		char name [70] ;
+		int Pamyat;
+		int Tsvet;
+		static int num_mod;
+		
+	public:
+	    void set()
+	    {
+	        cout << "Введите объём памяти: "; 
+	        cin >> Pamyat;
+	        cout << "Введите цвет: "; 
+	        cin >> Tsvet;
+	    }
+	    
+	    void show()
+	    {
+	        cout << "Объем памяти: " << Pamyat <<endl;
+	        cout << "Цвет: " << Tsvet <<endl;
+	        
+	        }
+	    
+	    
+	    
+	    
+		// конструкторы 
+		model::model(const model): Pamyat(0) , Tsvet(0)
+		{
+		    }
+		// параметр.
+		model::model(int p, int t): Pamyat(p) Tsvet(t)
+		{
+		    }
+		// параметр
+			model::model(int t): Tsvet(t)
+			{
+			  Pamyat = ++t;  
+			    }
+		   model n1
+		   model n2(32, red);
+		   model n3(64);
+		   
+		   cout << "Переменная n1" << endl;
+		   n1.show();
+		   cout <<endl;
+		   cout << "Переменная n2" << endl;
+		   n2.show();
+		   cout <<endl;
+		   cout << "Переменная n3" << endl;
+		   n3.show();
+		   cout <<endl;
+	
+		
+		//перегруженный оператор  
+		model & operator = (const model & mod);
+		//деструктор
+		~model();
+		
+		
+		//перегруженный оператор  
+		model & operator = (const model & mod);
+		
+		//дружественные функции 
+		friend bool operator >(const model &mod1, int n);
+		friend bool operator <(const model &mod1, const model & mod2);
+		friend bool operator >(const model &mod1, const model & mod2);
+		friend ostream & operator << (ostream & os, const model & mod);
+		friend istream & operator >> (istream & is, model & mod) ;
+		
+	
+};
+
+
+model::model()
+{
+	name[0]='/0';
+	kamera=0;
+	num_mod++;
+}
+
+
+model::model (const char *n)
+{
+	kamera=std::strlen(n);
+}
+
+
+model::model(const model & mod)
+{
+	num_mod++;
+	kamera=mod.kamera;
+	std::strcpy(name, mod.name);	
+}
+
+
+model::~model()
+{
+	--num_mod;
+	std::cout<< "Объект удален" << std::endl;
+	std::cout<< "Осталось " << howmany() << " объекта(ов)" << std::endl;
+}
+
+
+model & model::operator =(const model & mod)
+{
+	std::strcpy(name, mod.name);
+	Tsvet=mod.Tsvet;
+	return *this ;                                        
+} 
+
+
+
+
+bool operator >(const model &mod1, int n)
+{
+	return mod1.Pamyat<n;
+}
+
+bool operator <(const model & mod1, const model & mod2)
+{
+	return (std::strcmp(mod2.name,mod1.name)<0);
+}
+
+
+bool operator >(const model &mod1, const model & mod2)
+{
+	return mod2.Tsvet>mod1.Tsvet;
+}
+
+
+ostream & operator << (ostream & os, const model & mod)
+{
+	
+	os << mod.name;
+	return os;
+}
