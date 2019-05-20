@@ -1,0 +1,85 @@
+#include <iostream>
+#include <cstring>
+#include <string>
+
+class Chocolate 
+{
+public:
+       string name;
+}
+class Colour : public Chocolate
+{
+public:
+
+       string white;
+       string black;
+}
+class Forma : public Chocolate
+{
+public:
+       
+       string popular;
+}       
+
+
+class Moto
+{
+    public:
+          void Drive()
+          {
+              cout <<"Go!" << endl;
+          }
+};
+
+class Airplain
+{
+    public:
+          void Fly()
+          {
+              cout <<"Flew" << endl;
+          }
+};
+
+class FlyingMoto : public Moto, public Airplain
+{
+    
+    
+};
+
+
+
+                                                //virt f and abstr classi
+using namespace std;
+
+class Employee
+{
+    private:
+        virtual char* display ()
+        {
+            return (char*) "It`s standart class";
+        }
+    public:
+         Employee ()
+         {}
+         void Start working ()
+         {
+             cout <<"Start working" << display() << endl;
+         }
+};
+
+class Shepherd : public Employee
+
+ 
+class Gardener : public Employee
+
+int main()
+{
+    Employee empl;
+    Shepherd shep;
+    Gardener Gar;
+    
+    empl.run();
+    shep.run();
+    Gar.run();
+}    
+
